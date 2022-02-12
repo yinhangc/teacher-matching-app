@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 const MainHeader = () => {
   return (
     <header className="px-[5%] h-20 flex items-center justify-between bg-sky-800 text-white">
-      <h1>
+      <h1 style={{ fontFamily: 'cursive' }}>
         <Link to="/">PianoTeachers</Link>
       </h1>
       <ul className="flex gap-10">

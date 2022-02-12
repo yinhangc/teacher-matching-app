@@ -14,6 +14,9 @@ const Button = (props) => {
       _className =
         'py-2 px-6 border bg-slate-600 text-white cursor-default rounded-lg';
       break;
+    case 'small':
+      _className = 'py-1 px-2 border rounded-lg text-sm';
+      break;
     default:
       _className =
         'py-2 px-6 border bg-sky-800 text-white hover:bg-sky-700 rounded-lg';

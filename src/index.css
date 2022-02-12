@@ -4,12 +4,11 @@
 
 @layer base {
   h1 {
-    font-family: cursive;
-    @apply text-2xl font-bold md:text-4xl;
+    @apply text-3xl font-bold md:text-4xl;
   }
 
   h2 {
-    @apply text-xl font-bold md:text-3xl;
+    @apply text-2xl font-bold md:text-3xl;
   }
 
   h3 {
@@ -22,7 +21,7 @@
 
   body {
     font-family: 'STHeiti', 'SimHei';
-    @apply text-sm md:text-base;
+    @apply text-base;
   }
 
   header ul {
@@ -30,7 +29,7 @@
   }
 
   label {
-    @apply text-base font-bold md:text-lg;
+    @apply text-lg font-bold;
   }
 
   input {

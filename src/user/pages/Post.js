@@ -1,6 +1,8 @@
 import Input from '../../shared/components/ui/Input';
 import CheckboxGroup from '../../shared/components/ui/CheckboxGroup';
 import Button from '../../shared/components/ui/Button';
+import Editor from '../../shared/components/ui/Editor';
+import Switch from '../../shared/components/ui/Switch';
 import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
 
@@ -15,6 +17,8 @@ const Post = () => {
     phone: '',
     regions: [],
     time: [],
+    description: '',
+    showInfo: true,
   };
 
   const submitHandler = (values) => {
@@ -29,8 +33,13 @@ const Post = () => {
         onSubmit={(values) => submitHandler(values)}
       >
         {({ values, setFieldValue }) => (
-          <Form className="grid gap-6 w-full max-w-xl mx-auto">
-            <Input label="標題" name="title" type="text" placeholder="標題" />
+          <Form className="grid gap-8 w-full max-w-2xl mx-auto">
+            <Input
+              label="標題"
+              name="title"
+              type="textarea"
+              placeholder="標題"
+            />
             <Input
               label="聯絡電話"
               name="phone"
@@ -51,7 +60,19 @@ const Post = () => {
               label="地區"
               options={regionOption}
             />
-            <Button type="submit">確定</Button>
+            <Editor
+              value={values.description}
+              onChange={(content) => setFieldValue('description', content)}
+            />
+            <Switch
+              name="showInfo"
+              label="顯示你的檔案？"
+              toggle={values.showInfo}
+              onChange={() => setFieldValue('showInfo', !values.showInfo)}
+            />
+            <Button type="submit" className="w-full max-w-sm mx-auto">
+              確定
+            </Button>
           </Form>
         )}
       </Formik>

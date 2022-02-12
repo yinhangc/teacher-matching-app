@@ -3,9 +3,18 @@ import { useField } from 'formik';
 const Input = ({ label, ...props }) => {
   const [field, meta] = useField(props);
 
-  return (
-    <div className="grid gap-1.5">
-      <label htmlFor={field.name}>{label}</label>
+  let inputElement;
+  inputElement =
+    props.type === 'textarea' ? (
+      <textarea
+        className={`border py-2 px-4 rounded-lg ${
+          meta.error && meta.touched && 'border-red-600'
+        }`}
+        rows={2}
+        {...field}
+        {...props}
+      />
+    ) : (
       <input
         className={`border py-2 px-4 rounded-lg ${
           meta.error && meta.touched && 'border-red-600'
@@ -13,7 +22,15 @@ const Input = ({ label, ...props }) => {
         autoComplete="off"
         {...field}
         {...props}
-      ></input>
+      />
+    );
+
+  return (
+    <div className="grid gap-1.5">
+      <label className="text-sky-900" htmlFor={field.name}>
+        {label}
+      </label>
+      {inputElement}
       {meta.touched && meta.error && (
         <p className="text-red-600">{meta.error}</p>
       )}
