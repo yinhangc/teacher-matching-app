@@ -1,13 +1,39 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@layer base {
+  h1 {
+    font-family: cursive;
+    @apply text-2xl font-bold md:text-4xl;
+  }
+
+  h2 {
+    @apply text-xl font-bold md:text-3xl;
+  }
+
+  h3 {
+    @apply text-lg font-bold md:text-2xl;
+  }
+
+  h4 {
+    @apply text-base font-bold md:text-lg;
+  }
+
+  body {
+    font-family: 'STHeiti', 'SimHei';
+    @apply text-sm md:text-base;
+  }
+
+  header ul {
+    @apply text-base font-bold md:text-xl;
+  }
+
+  label {
+    @apply text-base font-bold md:text-lg;
+  }
+
+  input {
+    font: inherit;
+  }
 }
