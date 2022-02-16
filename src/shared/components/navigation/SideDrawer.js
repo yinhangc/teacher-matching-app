@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 const SideDrawer = (props) => {
   const { setDrawerOpened, drawerOpened } = props;
   const content = (
-    <div>
+    <>
       <div
-        className={`duration-300 ease-in-out sm:hidden fixed top-0 left-0 h-screen w-screen bg-slate-700 ${
-          drawerOpened ? 'opacity-90 z-40' : 'opacity-0 -z-10'
+        className={`duration-300 ease-in-out z-40 sm:hidden fixed top-0 left-0 h-screen bg-slate-700 ${
+          drawerOpened ? 'opacity-90 w-screen' : 'w-0 opacity-0'
         }`}
         onClick={() => setDrawerOpened(false)}
       ></div>
@@ -17,7 +17,7 @@ const SideDrawer = (props) => {
       >
         {props.children}
       </aside>
-    </div>
+    </>
   );
 
   return ReactDOM.createPortal(content, document.getElementById('drawer'));

@@ -1,22 +1,25 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Teachers from './teachers/pages/Teachers';
-import TeacherDetail from './teachers/pages/TeacherDetail';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import Teachers from './posts/pages/Teachers';
+import TeacherDetail from './posts/pages/TeacherDetail';
 import Auth from './user/pages/Auth';
 import Post from './user/pages/Post';
 import Layout from './shared/components/layout/Layout';
+import AuthContext from './shared/context/auth-context';
+import { useContext } from 'react';
 
 const App = () => {
+  const { isLoggedIn } = useContext(AuthContext);
+
   return (
-    <Router>
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Teachers />} />
-          <Route path="/:id" element={<TeacherDetail />} />
-          <Route path="/auth" element={<Auth />} />
-          <Route path="/post" element={<Post />} />
-        </Routes>
-      </Layout>
-    </Router>
+    <Layout>
+      <Routes>
+        {isLoggedIn && <Route path="/:userId/post" element={<Post />} />}
+        {!isLoggedIn && <Route path="/auth" element={<Auth />} />}
+        <Route path="/" element={<Teachers />} />
+        <Route path="/:id" element={<TeacherDetail />} />
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </Layout>
   );
 };
 

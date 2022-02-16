@@ -37,30 +37,44 @@ const Editor = (props) => {
   };
 
   return (
-    <div className="grid gap-2">
-      <div className="flex gap-2 items-center">
-        <label className="text-sky-900">詳細描述</label>
-        <Button
-          type="button"
-          btnType="small"
-          className="border-sky-800 text-sky-800 hover:bg-sky-50"
-          onClick={() => setPreview(!preview)}
-        >
-          {preview ? '編輯' : '預覽'}
-        </Button>
-      </div>
-      <div className="max-w-full overflow-y-auto">
-        <ReactQuill
-          ref={quillRef}
-          readOnly={preview}
-          value={props.value}
-          theme="snow"
-          modules={preview ? { toolbar: false } : modules}
-          formats={formats}
-          onChange={handleChange}
-        />
-      </div>
-    </div>
+    <>
+      {props.viewText ? (
+        <div className="max-w-full overflow-y-auto">
+          <ReactQuill
+            id="editor"
+            readOnly={true}
+            value={props.viewText}
+            modules={{ toolbar: false }}
+          />
+        </div>
+      ) : (
+        <div className="grid gap-2">
+          <div className="flex gap-2 items-center">
+            <label className="text-sky-900">詳細描述</label>
+            <Button
+              type="button"
+              btnType="small"
+              className="border-sky-800 text-sky-800 hover:bg-sky-50"
+              onClick={() => setPreview(!preview)}
+            >
+              {preview ? '編輯' : '預覽'}
+            </Button>
+          </div>
+          <div className="max-w-full overflow-y-auto">
+            <ReactQuill
+              id="editor"
+              ref={quillRef}
+              readOnly={preview}
+              value={props.value}
+              theme="snow"
+              modules={preview ? { toolbar: false } : modules}
+              formats={formats}
+              onChange={handleChange}
+            />
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
