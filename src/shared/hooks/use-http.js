@@ -3,13 +3,14 @@ import axios from 'axios';
 
 export const useHttp = () => {
   const [isLoading, setIsLoading] = useState(null);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
 
   const activeHttpReq = useRef([]);
 
   useEffect(() => {
+    const activeReqCurrent = activeHttpReq.current;
     return () => {
-      activeHttpReq.current.forEach((el) => el.abort());
+      activeReqCurrent.forEach((el) => el.abort());
     };
   }, []);
 
@@ -23,15 +24,15 @@ export const useHttp = () => {
           method,
           url,
           headers,
-          body,
+          data: body,
           signal: httpAbortController.signal,
         });
-        const data = res.data.data;
+        const data = res.data;
         setIsLoading(false);
         return data;
       } catch (err) {
-        console.log(err.message);
-        setError(err.message);
+        console.log(err.response.data);
+        setError(err.response.data);
         setIsLoading(false);
       }
     },

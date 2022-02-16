@@ -1,8 +1,19 @@
 import ReactDOM from 'react-dom';
-import { useState } from 'react';
+import Button from './Button';
 
 const Modal = (props) => {
-  // const [modalOpened, setModalOpened] = useState(true);
+  let modalContent = props.children;
+  if (props.errorMsg) {
+    modalContent = (
+      <div className="text-center grid place-items-center gap-1">
+        <h3>{props.content}</h3>
+        <p className="text-red-600">({props.errorMsg})</p>
+        <Button onClick={props.onCancel} className="w-40 mt-3">
+          OK
+        </Button>
+      </div>
+    );
+  }
 
   const content = (
     <div className={`animate-fadeIn ${!props.show ? 'hidden' : ''}`}>
@@ -16,7 +27,7 @@ const Modal = (props) => {
         className={`z-40 fixed w-10/12 bg-white top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] rounded-lg p-8 
         ${props.className ?? ''}`}
       >
-        {props.children}
+        {modalContent}
       </div>
     </div>
   );

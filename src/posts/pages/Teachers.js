@@ -17,7 +17,9 @@ const Teachers = () => {
   useEffect(() => {
     const fetchTeachers = async () => {
       try {
-        const { posts } = await sendRequest(`http://localhost:8000/api/posts`);
+        const {
+          data: { posts },
+        } = await sendRequest(`http://localhost:8000/api/posts`);
         setTeachers(posts);
       } catch (err) {}
     };
@@ -28,12 +30,13 @@ const Teachers = () => {
     <>
       <Modal
         onCancel={clearError}
-        show={error}
-        className="text-center grid place-items-center gap-1"
-      ></Modal>
+        errorMsg={error?.message}
+        show={!!error}
+        content="抱歉，暫時未能加載資料"
+      />
       {isLoading && !teachers && <LoadingSpinner />}
       {!isLoading && !error && teachers && (
-        <section className="grid gap-3">
+        <section className="grid gap-5">
           {!isLoggedIn && (
             <Button
               btnType="grey"

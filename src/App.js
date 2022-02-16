@@ -14,7 +14,7 @@ const App = () => {
     <Layout>
       <Routes>
         {isLoggedIn && <Route path="/:userId/post" element={<Post />} />}
-        {!isLoggedIn && <Route path="/auth" element={<Auth />} />}
+        <Route path="/auth" element={<Auth />} />
         <Route path="/" element={<Teachers />} />
         <Route path="/:id" element={<TeacherDetail />} />
         <Route path="*" element={<Navigate to="/" />} />

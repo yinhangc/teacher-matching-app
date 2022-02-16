@@ -19,21 +19,27 @@ const modules = {
 };
 
 // prettier-ignore
-const formats = [
-  'header', 
-  'bold', 'italic', 'underline', 'strike', 'color', 'blockquote', 
-  'list', 'bullet', 'indent', 'align',
-  'link'
-]
+const formats = ['header', 'bold', 'italic', 'underline', 'strike', 'color', 'blockquote', 'list', 'bullet', 'indent', 'align', 'link']
 
 // let quillRef = React.createRef<ReactQuill>();
 
 const Editor = (props) => {
+  const [touched, setTouched] = useState(false);
+  const [error, setError] = useState(false);
   const [preview, setPreview] = useState(false);
   let quillRef = useRef();
+  const parser = new DOMParser();
 
   const handleChange = () => {
-    props.onChange(quillRef.current.state.value);
+    const htmlString = quillRef.current.state.value;
+    props.onChange(htmlString);
+    const { textContent } = parser.parseFromString(
+      htmlString,
+      'text/html'
+    ).documentElement;
+    if (!touched) setTouched(true);
+    if (touched && !textContent) setError('詳細描述為必填');
+    else setError(null);
   };
 
   return (
@@ -72,6 +78,7 @@ const Editor = (props) => {
               onChange={handleChange}
             />
           </div>
+          {touched && error && <p className="text-red-600">{error}</p>}
         </div>
       )}
     </>

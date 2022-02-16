@@ -1,7 +1,10 @@
 import { Field } from 'formik';
 import Button from './Button';
+import { useField } from 'formik';
 
 const CheckboxGroup = (props) => {
+  const [field, meta] = useField(props);
+
   return (
     <div className="grid gap-2">
       <div className="flex gap-2 items-center">
@@ -31,6 +34,9 @@ const CheckboxGroup = (props) => {
           </label>
         ))}
       </div>
+      {meta.touched && meta.error && (
+        <p className="text-red-600">{meta.error}</p>
+      )}
     </div>
   );
 };

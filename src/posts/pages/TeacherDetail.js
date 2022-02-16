@@ -16,9 +16,9 @@ const TeacherDetail = () => {
   useEffect(() => {
     const fetchTeacher = async () => {
       try {
-        const { post } = await sendRequest(
-          `http://localhost:8000/api/posts/${id}`
-        );
+        const {
+          data: { post },
+        } = await sendRequest(`http://localhost:8000/api/posts/${id}`);
         post.description = unescape(post.description);
         post.region = post.region.join(', ');
         post.time = post.time.join(', ');
@@ -27,29 +27,24 @@ const TeacherDetail = () => {
       } catch (err) {}
     };
     fetchTeacher();
-  }, [sendRequest]);
+  }, [sendRequest, id]);
 
   return (
     <>
       <Modal
         onCancel={clearError}
-        show={error}
-        className="text-center grid place-items-center gap-1"
-      >
-        <h3>抱歉，暫時未能加載資料</h3>
-        <p>({error})</p>
-        <Button onClick={clearError} className="w-40 mt-3">
-          OK
-        </Button>
-      </Modal>
+        errorMsg={error?.message}
+        show={!!error}
+        content="抱歉，暫時未能加載資料"
+      />
       <section id="teacher-detail" className="grid gap-5">
         {isLoading && !teacher && <LoadingSpinner />}
         {!isLoading && !error && teacher && (
           <>
             <div>
               <img
-                src={`http://localhost:8000/public/img/posts/${teacher.imageCover}`}
-                // alt={teacher.creator.name}
+                src={`http://localhost:8000/image/posts/${teacher.imageCover}`}
+                alt={teacher.creator.name}
               />
             </div>
             <h2>{teacher.title}</h2>
