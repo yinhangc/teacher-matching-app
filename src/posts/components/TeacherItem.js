@@ -18,9 +18,7 @@ const TeacherItem = (props) => {
           <div className="flex items-center gap-2 pt-1">
             <span className="w-12 rounded-full overflow-hidden">
               <img
-                src={`http://localhost:8000/image/users/${
-                  creator.icon ?? 'default.jpeg'
-                }`}
+                src={`http://localhost:8000/image/users/${creator.icon}`}
                 alt={creator.name}
               />
             </span>

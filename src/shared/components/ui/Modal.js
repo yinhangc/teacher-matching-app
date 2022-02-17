@@ -15,6 +15,18 @@ const Modal = (props) => {
     );
   }
 
+  if (props.successMsg) {
+    modalContent = (
+      <div className="text-center grid place-items-center gap-1">
+        <h3>{props.content}</h3>
+        <p className="text-green-600">{props.successMsg}</p>
+        <Button onClick={props.onCancel} className="w-40 mt-3">
+          OK
+        </Button>
+      </div>
+    );
+  }
+
   const content = (
     <div className={`animate-fadeIn ${!props.show ? 'hidden' : ''}`}>
       {/* Overlay */}

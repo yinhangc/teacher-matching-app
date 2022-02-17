@@ -10,7 +10,7 @@ const Input = ({ label, ...props }) => {
         className={`border py-2 px-4 rounded-lg ${
           meta.error && meta.touched && 'border-red-600'
         }`}
-        rows={2}
+        rows={3}
         {...field}
         {...props}
       />

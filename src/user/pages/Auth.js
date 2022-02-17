@@ -22,6 +22,7 @@ const Auth = () => {
     try {
       const res = await sendRequest(
         'http://localhost:8000/api/users/login',
+        {},
         'POST',
         values
       );

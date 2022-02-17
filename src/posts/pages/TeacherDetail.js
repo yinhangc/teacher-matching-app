@@ -1,11 +1,11 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import Button from '../../shared/components/ui/Button';
 import { useEffect, useState } from 'react';
-import Editor from '../../shared/components/ui/Editor';
 import { unescape } from 'lodash';
 import { useHttp } from '../../shared/hooks/use-http';
 import LoadingSpinner from '../../shared/components/ui/LoadingSpinner';
 import Modal from '../../shared/components/ui/Modal';
+import ViewEditor from '../../shared/components/ui/ViewEditor';
 
 const TeacherDetail = () => {
   const { id } = useParams();
@@ -62,7 +62,7 @@ const TeacherDetail = () => {
             </div>
             <div>
               <h3 className="mb-1 text-sky-900">詳細資料</h3>
-              <Editor viewText={teacher.description} />
+              <ViewEditor viewText={teacher.description} />
             </div>
           </>
         )}
