@@ -13,9 +13,10 @@ const TeacherItem = (props) => {
             className="rounded-lg"
           />
         </div>
-        <div className="grid gap-y-2 justify-between items-center">
-          <h4 className="border-b-2 pb-2">{title}</h4>
-          <div className="flex items-center gap-2 pt-1">
+        <div className="grid grid-cols-1 gap-y-2 justify-between items-center">
+          <h4 className="">{title}</h4>
+          <hr className="py-1" />
+          <div className="flex items-center gap-2">
             <span className="w-12 rounded-full overflow-hidden">
               <img
                 src={`http://localhost:8000/image/users/${creator.icon}`}

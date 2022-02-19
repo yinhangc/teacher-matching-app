@@ -17,6 +17,10 @@ const Button = (props) => {
     case 'small':
       _className = 'py-1 px-2 border rounded-lg text-sm';
       break;
+    case 'delete':
+      _className =
+        'py-2 px-6 border bg-red-700 text-white hover:bg-red-600 border-red-700 rounded-lg';
+      break;
     default:
       _className =
         'py-2 px-6 border bg-sky-800 text-white hover:bg-sky-700 rounded-lg';

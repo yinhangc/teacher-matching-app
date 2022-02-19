@@ -1,5 +1,6 @@
 import Input from '../../shared/components/ui/Input';
 import CheckboxGroup from '../../shared/components/ui/CheckboxGroup';
+import ImageUpload from '../../shared/components/ui/ImageUpload';
 import Button from '../../shared/components/ui/Button';
 import Editor from '../../shared/components/ui/Editor';
 import Switch from '../../shared/components/ui/Switch';
@@ -7,7 +8,7 @@ import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
 import { useHttp } from '../../shared/hooks/use-http';
 import AuthContext from '../../shared/context/auth-context';
-import { useContext, useEffect, useState, useCallback } from 'react';
+import { useContext, useEffect, useState, useCallback, useMemo } from 'react';
 import LoadingSpinner from '../../shared/components/ui/LoadingSpinner';
 import Modal from '../../shared/components/ui/Modal';
 import { escape, unescape } from 'lodash';
@@ -28,31 +29,36 @@ const Post = () => {
     time: [],
     description: '',
     showInfo: true,
+    imageCover: null,
+    images: [],
   });
   const { isLoading, error, clearError, sendRequest } = useHttp();
 
-  useEffect(() => {
-    const getUserPost = async () => {
-      const {
-        data: { user },
-      } = await sendRequest(`http://localhost:8000/api/users/getMe`, {
-        Authorization: 'Bearer ' + token,
+  const getUserPost = useCallback(async () => {
+    const {
+      data: { user },
+    } = await sendRequest(`http://localhost:8000/api/users/getMe`, {
+      Authorization: 'Bearer ' + token,
+    });
+    if (user.post.length > 0) {
+      setPost(user.post[0]);
+      console.log(user.post[0]);
+      setInitialValue({
+        title: user.post[0].title,
+        phone: user.post[0].phone,
+        region: user.post[0].region,
+        time: user.post[0].time,
+        showInfo: user.post[0].showPost,
+        description: unescape(user.post[0].description),
+        imageCover: user.post[0].imageCover,
+        images: user.post[0].images,
       });
-      if (user.post.length > 0) {
-        setPost(user.post[0]);
-        console.log(user.post[0]);
-        setInitialValue({
-          title: user.post[0].title,
-          phone: user.post[0].phone,
-          region: user.post[0].region,
-          time: user.post[0].time,
-          showInfo: user.post[0].showPost,
-          description: unescape(user.post[0].description),
-        });
-      }
-    };
+    }
+  }, [token]);
+
+  useEffect(() => {
     getUserPost();
-  }, [sendRequest, userId, token]);
+  }, [getUserPost]);
 
   const validate = Yup.object({
     title: Yup.string().required('標題為必填'),
@@ -67,21 +73,55 @@ const Post = () => {
   const submitHandler = async (values) => {
     if (!post) {
       values.description = escape(values.description);
+      const body = { ...values };
+      delete body.iamges;
+      delete body.imageCover;
       try {
-        const res = await sendRequest(
+        await sendRequest(
           'http://localhost:8000/api/posts',
           {
             Authorization: 'Bearer ' + token,
             'Content-Type': 'application/json',
           },
           'POST',
-          values
+          body
         );
-        console.log(res);
         setSuccess(true);
+        getUserPost();
+      } catch (err) {}
+    } else {
+      console.log(values);
+      let formData = new FormData();
+      // string indicated it's uploaded be4 & user didn't modify it
+      values.imageCover?.length > 0 && typeof values.imageCover[0] !== 'string'
+        ? formData.append('imageCover', values.imageCover[0])
+        : formData.append('imageCover', null);
+      values.images?.length > 0 && typeof values.images[0] !== 'string'
+        ? values.images.forEach((img) => formData.append('images', img))
+        : formData.append('images', null);
+      formData.append('phone', values.phone);
+      formData.append('title', values.title);
+      values.time.forEach((time) => formData.append('time', time));
+      values.region.forEach((region) => formData.append('region', region));
+      formData.append('description', escape(values.description));
+      formData.append('showPost', values.showInfo);
+      for (const pair of formData.entries()) {
+        console.log(pair[0] + ': ' + pair[1]);
+      }
+      try {
+        const res = await sendRequest(
+          'http://localhost:8000/api/posts',
+          {
+            Authorization: 'Bearer ' + token,
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          'PATCH',
+          formData
+        );
+        setSuccess(true);
+        getUserPost();
       } catch (err) {}
     }
-    console.log(values);
   };
 
   const descriptionChangeHandler = useCallback((content, setFieldValue) => {
@@ -114,6 +154,23 @@ const Post = () => {
           >
             {({ values, setFieldValue, isValid }) => (
               <Form className="grid gap-8 w-full max-w-2xl mx-auto">
+                {post && (
+                  <>
+                    <ImageUpload
+                      label="封面照片"
+                      name="imageCover"
+                      setFieldValue={setFieldValue}
+                      defaultValue={post?.imageCover}
+                    />
+                    <ImageUpload
+                      label="照片"
+                      name="images"
+                      setFieldValue={setFieldValue}
+                      defaultValue={post?.images}
+                      multiple
+                    />
+                  </>
+                )}
                 <Input
                   label="標題"
                   name="title"
