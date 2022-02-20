@@ -8,7 +8,8 @@ const Button = (props) => {
         'py-2 px-6 border hover:bg-slate-600 hover:text-white rounded-lg';
       break;
     case 'grey':
-      _className = 'py-2 px-6 border bg-slate-600 text-white rounded-lg';
+      _className =
+        'py-2 px-6 border bg-slate-600 hover:bg-slate-500 text-white rounded-lg';
       break;
     case 'disabled':
       _className =

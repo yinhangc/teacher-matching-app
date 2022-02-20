@@ -29,7 +29,7 @@ const NavLinks = ({ setDrawerOpened }) => {
         <>
           <li>
             <NavLink
-              to="/3er2/post"
+              to="/user/post"
               className={({ isActive }) =>
                 isActive
                   ? _className +
@@ -39,6 +39,20 @@ const NavLinks = ({ setDrawerOpened }) => {
               onClick={setDrawerOpened ? () => setDrawerOpened(false) : null}
             >
               刊登
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              to="/user/profile"
+              className={({ isActive }) =>
+                isActive
+                  ? _className +
+                    ' border-l-2 pl-4 sm:pl-0 sm:border-b-2 sm:border-l-0'
+                  : _className
+              }
+              onClick={setDrawerOpened ? () => setDrawerOpened(false) : null}
+            >
+              個人資料
             </NavLink>
           </li>
           <li className="grid place-items-center mt-4 sm:mt-0 sm:block">

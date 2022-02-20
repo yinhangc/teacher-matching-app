@@ -1,9 +1,11 @@
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useState, useCallback, useRef, useEffect, useContext } from 'react';
+import AuthContext from '../context/auth-context';
 import axios from 'axios';
 
 export const useHttp = () => {
   const [isLoading, setIsLoading] = useState(null);
   const [error, setError] = useState(null);
+  const { logout } = useContext(AuthContext);
 
   const activeHttpReq = useRef([]);
 
@@ -34,6 +36,8 @@ export const useHttp = () => {
         console.log(err.response.data);
         setError(err.response.data);
         setIsLoading(false);
+        if (err.response.data.message.includes('密碼已更改，請再次登入'))
+          logout();
       }
     },
     []

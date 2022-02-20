@@ -7,8 +7,8 @@ const Input = ({ label, ...props }) => {
   inputElement =
     props.type === 'textarea' ? (
       <textarea
-        className={`border py-2 px-4 rounded-lg ${
-          meta.error && meta.touched && 'border-red-600'
+        className={`border py-2 px-4 rounded-lg${
+          meta.error && meta.touched ? ' border-red-600' : ''
         }`}
         rows={3}
         {...field}
@@ -16,8 +16,8 @@ const Input = ({ label, ...props }) => {
       />
     ) : (
       <input
-        className={`border py-2 px-4 rounded-lg ${
-          meta.error && meta.touched && 'border-red-600'
+        className={`border py-2 px-4 rounded-lg${
+          meta.error && meta.touched ? ' border-red-600' : ''
         }`}
         autoComplete="off"
         {...field}

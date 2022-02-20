@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
 import { useHttp } from '../../shared/hooks/use-http';
 import AuthContext from '../../shared/context/auth-context';
-import { useContext, useEffect, useState, useCallback, useMemo } from 'react';
+import { useContext, useEffect, useState, useCallback } from 'react';
 import LoadingSpinner from '../../shared/components/ui/LoadingSpinner';
 import Modal from '../../shared/components/ui/Modal';
 import { escape, unescape } from 'lodash';
@@ -19,7 +19,7 @@ const timeOption = ['星期一','星期二','星期三','星期四','星期五',
 const regionOption = ['中西區','灣仔區','東區','南區','九龍城區','深水埗區','油尖旺區','黃大仙區','觀塘區','北區','西貢區','沙田區','大埔區','離島區','葵青區','荃灣區','屯門區','元朗區']
 
 const Post = () => {
-  const { token, userId } = useContext(AuthContext);
+  const { token } = useContext(AuthContext);
   const [post, setPost] = useState(null);
   const [success, setSuccess] = useState(false);
   const [initialValue, setInitialValue] = useState({
@@ -90,7 +90,7 @@ const Post = () => {
         getUserPost();
       } catch (err) {}
     } else {
-      console.log(values);
+      // console.log(values);
       let formData = new FormData();
       // string indicated it's uploaded be4 & user didn't modify it
       values.imageCover?.length > 0 && typeof values.imageCover[0] !== 'string'
@@ -105,11 +105,11 @@ const Post = () => {
       values.region.forEach((region) => formData.append('region', region));
       formData.append('description', escape(values.description));
       formData.append('showPost', values.showInfo);
-      for (const pair of formData.entries()) {
-        console.log(pair[0] + ': ' + pair[1]);
-      }
+      // for (const pair of formData.entries()) {
+      //   console.log(pair[0] + ': ' + pair[1]);
+      // }
       try {
-        const res = await sendRequest(
+        await sendRequest(
           'http://localhost:8000/api/posts',
           {
             Authorization: 'Bearer ' + token,
@@ -152,7 +152,7 @@ const Post = () => {
             onSubmit={(values) => submitHandler(values)}
             enableReinitialize={true}
           >
-            {({ values, setFieldValue, isValid }) => (
+            {({ values, setFieldValue }) => (
               <Form className="grid gap-8 w-full max-w-2xl mx-auto">
                 {post && (
                   <>
