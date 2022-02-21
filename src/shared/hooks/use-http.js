@@ -1,4 +1,5 @@
 import { useState, useCallback, useRef, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/auth-context';
 import axios from 'axios';
 
@@ -6,7 +7,7 @@ export const useHttp = () => {
   const [isLoading, setIsLoading] = useState(null);
   const [error, setError] = useState(null);
   const { logout } = useContext(AuthContext);
-
+  const navigate = useNavigate();
   const activeHttpReq = useRef([]);
 
   useEffect(() => {
@@ -36,11 +37,13 @@ export const useHttp = () => {
         console.log(err.response.data);
         setError(err.response.data);
         setIsLoading(false);
-        if (err.response.data.message.includes('密碼已更改，請再次登入'))
+        if (err.response.data.error.statusCode === 401) {
           logout();
+          navigate('/auth');
+        }
       }
     },
-    []
+    [logout]
   );
 
   const clearError = () => {

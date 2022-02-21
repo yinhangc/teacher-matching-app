@@ -61,7 +61,7 @@ const Post = () => {
   }, [getUserPost]);
 
   const validate = Yup.object({
-    title: Yup.string().required('標題為必填'),
+    title: Yup.string().required('標題為必填').max(100, '標題不得多於100字'),
     phone: Yup.string().required('聯絡電話為必填'),
     time: Yup.array().min(1, '時間為必填'),
     region: Yup.array().min(1, '地區為必填'),
@@ -86,19 +86,25 @@ const Post = () => {
           'POST',
           body
         );
-        setSuccess(true);
+        setSuccess('(歡迎上載圖片到刊登資料😄)');
         getUserPost();
       } catch (err) {}
     } else {
       // console.log(values);
       let formData = new FormData();
-      // string indicated it's uploaded be4 & user didn't modify it
-      values.imageCover?.length > 0 && typeof values.imageCover[0] !== 'string'
-        ? formData.append('imageCover', values.imageCover[0])
-        : formData.append('imageCover', null);
-      values.images?.length > 0 && typeof values.images[0] !== 'string'
-        ? values.images.forEach((img) => formData.append('images', img))
-        : formData.append('images', null);
+      if (
+        values.imageCover?.length > 0 &&
+        typeof values.imageCover[0] !== 'string'
+      ) {
+        formData.append('imageCover', values.imageCover[0]);
+      } else if (!values.imageCover) {
+        formData.append('imageCover', null);
+      }
+      if (values.images?.length > 0 && typeof values.images[0] !== 'string') {
+        values.images.forEach((img) => formData.append('images', img));
+      } else if (!values.images) {
+        formData.append('images', null);
+      }
       formData.append('phone', values.phone);
       formData.append('title', values.title);
       values.time.forEach((time) => formData.append('time', time));
@@ -118,7 +124,7 @@ const Post = () => {
           'PATCH',
           formData
         );
-        setSuccess(true);
+        setSuccess('(資料已成功更改！)');
         getUserPost();
       } catch (err) {}
     }
@@ -138,8 +144,8 @@ const Post = () => {
       />
       <Modal
         onCancel={() => setSuccess(false)}
-        successMsg={post ? '(歡迎上載圖片到刊登資料😄)' : '(資料已成功更改！)'}
-        show={success}
+        successMsg={success}
+        show={!!success}
         content="刊登成功！"
       />
       <section>

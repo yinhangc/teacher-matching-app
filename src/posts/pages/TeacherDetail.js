@@ -6,6 +6,7 @@ import { useHttp } from '../../shared/hooks/use-http';
 import LoadingSpinner from '../../shared/components/ui/LoadingSpinner';
 import Modal from '../../shared/components/ui/Modal';
 import ViewEditor from '../../shared/components/ui/ViewEditor';
+import Swiper from '../../shared/components/ui/Swiper';
 
 const TeacherDetail = () => {
   const { id } = useParams();
@@ -41,12 +42,31 @@ const TeacherDetail = () => {
         {isLoading && !teacher && <LoadingSpinner />}
         {!isLoading && !error && teacher && (
           <>
-            <div>
-              <img
-                src={`http://localhost:8000/image/posts/${teacher.imageCover}`}
-                alt={teacher.creator.name}
-              />
-            </div>
+            {teacher.images.length > 0 ? (
+              <Swiper>
+                <div>
+                  <img
+                    src={`http://localhost:8000/image/posts/${teacher.imageCover}`}
+                    alt={teacher.creator.name}
+                  />
+                </div>
+                {teacher.images.map((img) => (
+                  <div key={img}>
+                    <img
+                      src={`http://localhost:8000/image/posts/${img}`}
+                      alt={teacher.creator.name}
+                    />
+                  </div>
+                ))}
+              </Swiper>
+            ) : (
+              <div>
+                <img
+                  src={`http://localhost:8000/image/posts/${teacher.imageCover}`}
+                  alt={teacher.creator.name}
+                />
+              </div>
+            )}
             <h2>{teacher.title}</h2>
             <div>
               <h3 className="mb-1 text-sky-900">聯絡電話</h3>

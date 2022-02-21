@@ -27,7 +27,10 @@ const ImageUpload = ({
 
   // when file change
   useEffect(() => {
-    if ((!fileArr || fileArr.length === 0) && !defaultValue) {
+    if (
+      (!fileArr || fileArr.length === 0) &&
+      (!defaultValue || defaultValue.length === 0)
+    ) {
       setPreview(null);
       return;
     }

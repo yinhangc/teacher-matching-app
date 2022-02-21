@@ -4,7 +4,7 @@ const TeacherItem = (props) => {
   const { _id: id, imageCover, creator, title } = props.teacher;
 
   return (
-    <Link to={`/${id}`}>
+    <Link to={`/post/${id}`}>
       <li className="grid sm:grid-cols-[1fr,2fr] gap-3 items-center rounded-xl border border-slate-300 p-3 shadow-md transition duration-150 ease-in-out hover:scale-105">
         <div>
           <img
