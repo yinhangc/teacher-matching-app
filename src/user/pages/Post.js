@@ -54,7 +54,7 @@ const Post = () => {
         images: user.post[0].images,
       });
     }
-  }, [token]);
+  }, [token, sendRequest]);
 
   useEffect(() => {
     getUserPost();
@@ -149,7 +149,10 @@ const Post = () => {
         content="刊登成功！"
       />
       <section>
-        <h2 className="mb-4">{post ? '更新你的刊登資料' : '刊登你的資料'}</h2>
+        <h2 className="mb-4">
+          <i className="fa-solid fa-pen-to-square mr-4"></i>
+          {post ? '更新你的刊登資料' : '刊登你的資料'}
+        </h2>
         {isLoading && !error && <LoadingSpinner />}
         {!isLoading && !error && (
           <Formik
@@ -163,13 +166,15 @@ const Post = () => {
                 {post && (
                   <>
                     <ImageUpload
+                      icon={<i className="fa-solid fa-panorama"></i>}
                       label="封面照片"
                       name="imageCover"
                       setFieldValue={setFieldValue}
                       defaultValue={post?.imageCover}
                     />
                     <ImageUpload
-                      label="照片"
+                      icon={<i className="fa-solid fa-images"></i>}
+                      label={'照片'}
                       name="images"
                       setFieldValue={setFieldValue}
                       defaultValue={post?.images}
@@ -178,6 +183,7 @@ const Post = () => {
                   </>
                 )}
                 <Input
+                  icon={<i className="fa-solid fa-heading"></i>}
                   label="標題"
                   name="title"
                   type="textarea"
@@ -185,6 +191,7 @@ const Post = () => {
                   value={values.title}
                 />
                 <Input
+                  icon={<i className="fa-solid fa-phone"></i>}
                   label="聯絡電話"
                   name="phone"
                   type="text"
@@ -194,6 +201,7 @@ const Post = () => {
                   onSelectAll={() => setFieldValue('time', timeOption)}
                   onClear={() => setFieldValue('time', [])}
                   name="time"
+                  icon={<i className="fa-solid fa-clock"></i>}
                   label="時間"
                   options={timeOption}
                 />
@@ -201,11 +209,13 @@ const Post = () => {
                   onSelectAll={() => setFieldValue('region', regionOption)}
                   onClear={() => setFieldValue('region', [])}
                   name="region"
+                  icon={<i className="fa-solid fa-map-location-dot"></i>}
                   label="地區"
                   options={regionOption}
                 />
                 <Editor
                   value={values.description}
+                  icon={<i className="fa-solid fa-pencil"></i>}
                   name="description"
                   defaultValue={unescape(post?.description) ?? ''}
                   onChange={descriptionChangeHandler}
@@ -213,12 +223,14 @@ const Post = () => {
                   viewText={false}
                 />
                 <Switch
+                  icon={<i className="fa-solid fa-eye"></i>}
                   name="showInfo"
                   label="顯示你的檔案？"
                   toggle={values.showInfo}
                   onChange={() => setFieldValue('showInfo', !values.showInfo)}
                 />
                 <Button className="w-full max-w-sm mx-auto" type="submit">
+                  <i className="fa-regular fa-square-check"></i>
                   {post ? '確定更改' : '確定刊登'}
                 </Button>
               </Form>

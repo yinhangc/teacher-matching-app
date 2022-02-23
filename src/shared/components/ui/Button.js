@@ -5,11 +5,11 @@ const Button = (props) => {
   switch (props.btnType) {
     case 'back':
       _className =
-        'py-2 px-6 border hover:bg-slate-600 hover:text-white rounded-lg';
+        'flex gap-2 justify-center items-center py-2 px-6 border hover:bg-slate-600 hover:text-white rounded-lg';
       break;
     case 'grey':
       _className =
-        'py-2 px-6 border bg-slate-600 hover:bg-slate-500 text-white rounded-lg';
+        'flex gap-2 justify-center items-center py-2 px-6 border bg-slate-600 hover:bg-slate-500 text-white rounded-lg';
       break;
     case 'disabled':
       _className =
@@ -18,13 +18,16 @@ const Button = (props) => {
     case 'small':
       _className = 'py-1 px-2 border rounded-lg text-sm';
       break;
+    case 'active-filter':
+      _className = 'py-1 px-2 border rounded-lg text-sm bg-sky-800 text-white';
+      break;
     case 'delete':
       _className =
-        'py-2 px-6 border bg-red-700 text-white hover:bg-red-600 border-red-700 rounded-lg';
+        'flex gap-2 justify-center items-center py-2 px-6 border bg-red-700 text-white hover:bg-red-600 border-red-700 rounded-lg';
       break;
     default:
       _className =
-        'py-2 px-6 border bg-sky-800 text-white hover:bg-sky-700 rounded-lg';
+        'flex gap-2 justify-center items-center py-2 px-6 border bg-sky-800 text-white hover:bg-sky-700 rounded-lg';
   }
 
   return (
@@ -33,6 +36,7 @@ const Button = (props) => {
       onClick={props.onClick}
       type={props.type}
     >
+      {props.btnType === 'back' && <i className="fa-solid fa-chevron-left"></i>}
       {props.children}
     </button>
   );

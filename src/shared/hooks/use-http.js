@@ -18,7 +18,7 @@ export const useHttp = () => {
   }, []);
 
   const sendRequest = useCallback(
-    async (url, headers = {}, method = 'GET', body = null) => {
+    async (url, headers = {}, method = 'GET', body = null, params = {}) => {
       setIsLoading(true);
       const httpAbortController = new AbortController();
       activeHttpReq.current.push(httpAbortController);
@@ -27,6 +27,7 @@ export const useHttp = () => {
           method,
           url,
           headers,
+          params,
           data: body,
           signal: httpAbortController.signal,
         });
@@ -43,7 +44,7 @@ export const useHttp = () => {
         }
       }
     },
-    [logout]
+    [logout, navigate]
   );
 
   const clearError = () => {

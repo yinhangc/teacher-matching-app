@@ -2,6 +2,12 @@ module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
+      transitionProperty: {
+        height: 'height',
+      },
+      colors: {
+        lightblue: '#DAEAF2',
+      },
       keyframes: {
         fadeIn: {
           '0%': {

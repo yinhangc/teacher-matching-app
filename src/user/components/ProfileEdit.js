@@ -95,12 +95,14 @@ const ProfileEdit = ({ setEdit, user, getUser }) => {
             <Form className="grid grid-cols-1 auto-rows-min gap-5">
               <div className="grid sm:flex gap-5 sm:gap-2">
                 <Input
+                  icon={<i className="fa-solid fa-signature"></i>}
                   label="用戶名稱"
                   name="name"
                   placeholder="用戶名稱"
                   value={values.name}
                 />
                 <Input
+                  icon={<i className="fa-solid fa-at"></i>}
                   label="電郵地址"
                   name="email"
                   placeholder="電郵地址"
@@ -109,6 +111,7 @@ const ProfileEdit = ({ setEdit, user, getUser }) => {
               </div>
               <h4 className="-mb-4">如要更改密碼，請填寫下列資料：</h4>
               <Input
+                icon={<i className="fa-solid fa-lock"></i>}
                 label="現時密碼"
                 name="passwordCurrent"
                 placeholder="現時密碼"
@@ -117,6 +120,7 @@ const ProfileEdit = ({ setEdit, user, getUser }) => {
                 type="password"
               />
               <Input
+                icon={<i className="fa-solid fa-lock"></i>}
                 label="新密碼"
                 name="password"
                 placeholder="新密碼"
@@ -124,6 +128,7 @@ const ProfileEdit = ({ setEdit, user, getUser }) => {
                 type="password"
               />
               <Input
+                icon={<i className="fa-solid fa-lock"></i>}
                 label="確認新密碼"
                 name="passwordConfirm"
                 placeholder="確認新密碼"
@@ -143,6 +148,7 @@ const ProfileEdit = ({ setEdit, user, getUser }) => {
                   disabled={!isValid}
                   btnType={isValid ? '' : 'disabled'}
                 >
+                  <i className="fa-regular fa-square-check"></i>
                   提交更改
                 </Button>
               </div>

@@ -68,7 +68,11 @@ const Auth = () => {
         {isLoading && !error && <LoadingSpinner />}
         {!error && !isLoading && (
           <Formik
-            initialValues={{ email: '', password: '' }}
+            initialValues={
+              signup
+                ? { email: '', password: '', name: '', passwordConfirm: '' }
+                : { email: '', password: '' }
+            }
             validationSchema={validate}
             onSubmit={(values) => submitHandler(values)}
           >
@@ -76,6 +80,7 @@ const Auth = () => {
               <Form className="grid gap-6 w-full max-w-lg">
                 {signup && (
                   <Input
+                    icon={<i className="fa-solid fa-signature"></i>}
                     label="用戶名"
                     name="name"
                     type="text"
@@ -84,12 +89,14 @@ const Auth = () => {
                   />
                 )}
                 <Input
+                  icon={<i className="fa-solid fa-at"></i>}
                   label="電郵地址"
                   name="email"
                   type="text"
                   placeholder="電郵地址"
                 />
                 <Input
+                  icon={<i className="fa-solid fa-lock"></i>}
                   label="密碼"
                   name="password"
                   type="password"
@@ -97,6 +104,7 @@ const Auth = () => {
                 />
                 {signup && (
                   <Input
+                    icon={<i className="fa-solid fa-lock"></i>}
                     label="確認密碼"
                     name="passwordConfirm"
                     type="password"
@@ -117,6 +125,7 @@ const Auth = () => {
                   className="w-4/6 mx-auto"
                   onClick={() => setSignup(!signup)}
                 >
+                  <i className="fa-regular fa-circle-question"></i>
                   {signup ? '已有帳戶？請接此登入' : '沒有帳戶？請接此註冊'}
                 </Button>
               </Form>

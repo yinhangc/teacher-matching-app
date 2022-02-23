@@ -4,6 +4,7 @@ import Modal from './Modal';
 
 const ImageUpload = ({
   name,
+  icon,
   label,
   setFieldValue,
   defaultValue,
@@ -23,7 +24,7 @@ const ImageUpload = ({
     } else if (defaultValue && name === 'imageCover') {
       setPreview([`http://localhost:8000/image/posts/${defaultValue}`]);
     }
-  }, [defaultValue]);
+  }, [defaultValue, name]);
 
   // when file change
   useEffect(() => {
@@ -68,6 +69,7 @@ const ImageUpload = ({
       />
       <div className="grid gap-2">
         <label className="text-sky-900" htmlFor={props.name}>
+          {icon}
           {label} {props.multiple && '(最多4張)'}
         </label>
         {preview && (
@@ -84,7 +86,11 @@ const ImageUpload = ({
                     x 移除
                   </Button>
                 )}
-                <img src={url} className="object-contain max-h-96 rounded-md" />
+                <img
+                  src={url}
+                  alt="Your cover"
+                  className="object-contain max-h-96 rounded-md"
+                />
               </div>
             ))}
           </div>
@@ -104,7 +110,7 @@ const ImageUpload = ({
             onClick={() => fileRef.current.click()}
             type="button"
           >
-            上載{label}
+            <i className="fa-regular fa-square-plus"></i>上載{label}
           </Button>
           {name === 'images' && preview && (
             <Button
@@ -113,7 +119,7 @@ const ImageUpload = ({
               onClick={removeFile}
               type="button"
             >
-              清除{label}
+              <i className="fa-regular fa-square-minus"></i>清除{label}
             </Button>
           )}
         </div>

@@ -1,6 +1,7 @@
 import { useEffect, useContext, useState, useRef, useCallback } from 'react';
 import ProfileEdit from '../components/ProfileEdit';
 import LoadingSpinner from '../../shared/components/ui/LoadingSpinner';
+import Modal from '../../shared/components/ui/Modal';
 import Button from '../../shared/components/ui/Button';
 import AuthContext from '../../shared/context/auth-context';
 import { useHttp } from '../../shared/hooks/use-http';
@@ -22,7 +23,7 @@ const Profile = () => {
       console.log(user);
       setUser(user);
     } catch (err) {}
-  }, [token]);
+  }, [token, sendRequest]);
 
   useEffect(() => {
     getUser();
@@ -65,7 +66,15 @@ const Profile = () => {
 
   return (
     <section>
-      <h2 className="mb-6">個人資料</h2>
+      <h2 className="mb-6">
+        <i className="fa-solid fa-circle-user mr-4"></i>個人資料
+      </h2>
+      <Modal
+        onCancel={clearError}
+        errorMsg={error?.message}
+        show={!!error}
+        content="讀取失敗"
+      />
       {isLoading && <LoadingSpinner />}
       {!isLoading && !error && user && (
         <div className="grid sm:grid-cols-[max-content,max-content] gap-x-12 gap-y-10 items-center justify-center">
@@ -84,16 +93,16 @@ const Profile = () => {
               accept="image/*"
               onChange={uploadIconHandler}
             />
-            <Button className="w-4/6" onClick={() => iconRef.current.click()}>
-              更改頭像
+            <Button className="w-40" onClick={() => iconRef.current.click()}>
+              <i className="fa-solid fa-image-portrait"></i>更改頭像
             </Button>
             {user.icon !== 'default-icon.jpeg' && (
               <Button
-                className="w-4/6"
+                className="w-40"
                 onClick={clearIconHandler}
                 btnType="delete"
               >
-                清除頭像
+                <i class="fa-regular fa-square-minus"></i>清除頭像
               </Button>
             )}
           </div>
@@ -107,7 +116,7 @@ const Profile = () => {
                 <h4>電郵地址</h4>
                 <p>{user.email}</p>
                 <Button className="col-span-2" onClick={() => setEdit(true)}>
-                  更改資料
+                  <i class="fa-solid fa-user-pen"></i>更改資料
                 </Button>
               </div>
             )}

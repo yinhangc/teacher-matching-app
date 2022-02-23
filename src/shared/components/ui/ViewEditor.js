@@ -11,9 +11,9 @@ const ViewEditor = ({ viewText }) => {
     if (quill) {
       quill.clipboard.dangerouslyPasteHTML(viewText);
     }
-  }, [quill]);
+  }, [quill, viewText]);
 
-  return <div style={{ border: 'none' }} ref={quillRef}></div>;
+  return <div style={{ border: 'none' }} ref={quillRef} id="editor"></div>;
 };
 
 export default ViewEditor;

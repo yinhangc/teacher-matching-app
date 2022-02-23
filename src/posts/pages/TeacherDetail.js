@@ -8,6 +8,11 @@ import Modal from '../../shared/components/ui/Modal';
 import ViewEditor from '../../shared/components/ui/ViewEditor';
 import Swiper from '../../shared/components/ui/Swiper';
 
+// prettier-ignore
+const timeOption = ['星期一','星期二','星期三','星期四','星期五','星期六','星期日','公眾假期'];
+// prettier-ignore
+const regionOption = ['中西區','灣仔區','東區','南區','九龍城區','深水埗區','油尖旺區','黃大仙區','觀塘區','北區','西貢區','沙田區','大埔區','離島區','葵青區','荃灣區','屯門區','元朗區']
+
 const TeacherDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -21,8 +26,12 @@ const TeacherDetail = () => {
           data: { post },
         } = await sendRequest(`http://localhost:8000/api/posts/${id}`);
         post.description = unescape(post.description);
-        post.region = post.region.join(', ');
-        post.time = post.time.join(', ');
+        post.region = post.region
+          .sort((a, b) => regionOption.indexOf(a) - regionOption.indexOf(b))
+          .join(', ');
+        post.time = post.time
+          .sort((a, b) => timeOption.indexOf(a) - timeOption.indexOf(b))
+          .join(', ');
         console.log(post);
         setTeacher(post);
       } catch (err) {}
@@ -89,7 +98,7 @@ const TeacherDetail = () => {
         <Button
           btnType="back"
           className="place-self-end"
-          onClick={() => navigate('/')}
+          onClick={() => navigate(-1)}
         >
           返回
         </Button>

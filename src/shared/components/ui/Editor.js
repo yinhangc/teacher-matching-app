@@ -35,6 +35,7 @@ const Editor = (props) => {
     if (quill) {
       if (defaultValue) {
         quill.clipboard.dangerouslyPasteHTML(defaultValue);
+        window.scrollTo(0, 0);
       }
       quill.on('text-change', () => {
         onChange(quillRef.current.firstChild.innerHTML, setFieldValue);
@@ -49,10 +50,10 @@ const Editor = (props) => {
     <>
       <div className="grid gap-2">
         <div className="flex gap-2 items-center">
-          <label className="text-sky-900">詳細描述</label>
+          <label className="text-sky-900">{props.icon}詳細描述</label>
         </div>
         <div className="max-w-full mb-14 sm:mb-10">
-          <div ref={quillRef} onBlur={() => setTouched(true)} />
+          <div id="editor" ref={quillRef} onBlur={() => setTouched(true)} />
         </div>
         {((touched && error) || (touched && meta.error)) && (
           <p className="text-red-600">描述為必填</p>

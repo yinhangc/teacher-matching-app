@@ -1,6 +1,6 @@
 import { useField } from 'formik';
 
-const Input = ({ label, ...props }) => {
+const Input = ({ icon, label, ...props }) => {
   const [field, meta] = useField(props);
 
   let inputElement;
@@ -28,6 +28,7 @@ const Input = ({ label, ...props }) => {
   return (
     <div className="grid gap-1.5">
       <label className="text-sky-900" htmlFor={field.name}>
+        {icon}
         {label}
       </label>
       {inputElement}

@@ -8,7 +8,10 @@ const CheckboxGroup = (props) => {
   return (
     <div className="grid gap-2">
       <div className="flex gap-2 items-center">
-        <label className="text-sky-900">{props.label}</label>
+        <label className="text-sky-900">
+          {props.icon}
+          {props.label}
+        </label>
         <Button
           type="button"
           btnType="small"

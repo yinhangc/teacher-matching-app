@@ -1,11 +1,9 @@
-import './LoadingSpinner.css';
+import spinner from '../../../assets/spinner.svg';
 
 const LoadingSpinner = (props) => {
   return (
-    <div className="text-center">
-      <div className={`${props.asOverlay && 'loading-spinner__overlay'}`}>
-        <div className="lds-dual-ring"></div>
-      </div>
+    <div className="grid place-items-center">
+      <img src={spinner} alt="Loading..." />
     </div>
   );
 };

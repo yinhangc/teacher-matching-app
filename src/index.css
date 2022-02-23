@@ -36,6 +36,10 @@
     font: inherit;
   }
 
+  :not(button) > i {
+    @apply w-6 mr-2;
+  }
+
   #editor h1,
   #editor h2,
   #editor h3 {
