@@ -18,7 +18,9 @@ const Auth = () => {
     ? Yup.object({
         name: Yup.string().required('用戶名為必填'),
         email: Yup.string().email('無效的電郵地址').required('電郵地址為必填'),
-        password: Yup.string().required('密碼為必填'),
+        password: Yup.string()
+          .required('密碼為必填')
+          .min(6, '密碼需要至少6位字元'),
         passwordConfirm: Yup.string()
           .required('確認密碼為必填')
           .oneOf([Yup.ref('password'), null], '確認密碼與密碼不符'),
