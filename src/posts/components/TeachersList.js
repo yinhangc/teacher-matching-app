@@ -1,4 +1,5 @@
 import TeacherItem from './TeacherItem';
+import React from 'react';
 
 const TeachersList = (props) => {
   return (

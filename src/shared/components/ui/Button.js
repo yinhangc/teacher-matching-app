@@ -13,7 +13,7 @@ const Button = (props) => {
       break;
     case 'disabled':
       _className =
-        'py-2 px-6 border bg-slate-600 text-white cursor-default rounded-lg';
+        'flex gap-2 justify-center items-center py-2 px-6 border bg-slate-600 text-white cursor-default rounded-lg';
       break;
     case 'small':
       _className = 'py-1 px-2 border rounded-lg text-sm';

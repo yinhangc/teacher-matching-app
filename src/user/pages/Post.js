@@ -42,7 +42,6 @@ const Post = () => {
     });
     if (user.post.length > 0) {
       setPost(user.post[0]);
-      console.log(user.post[0]);
       setInitialValue({
         title: user.post[0].title,
         phone: user.post[0].phone,
@@ -62,7 +61,9 @@ const Post = () => {
 
   const validate = Yup.object({
     title: Yup.string().required('標題為必填').max(100, '標題不得多於100字'),
-    phone: Yup.string().required('聯絡電話為必填'),
+    phone: Yup.string()
+      .required('聯絡電話為必填')
+      .matches(/^[2-9][0-9]{7}$/, '聯絡電話必須為有效的8位數字'),
     time: Yup.array().min(1, '時間為必填'),
     region: Yup.array().min(1, '地區為必填'),
     description: Yup.string()
@@ -90,7 +91,6 @@ const Post = () => {
         getUserPost();
       } catch (err) {}
     } else {
-      // console.log(values);
       let formData = new FormData();
       if (
         values.imageCover?.length > 0 &&
@@ -111,9 +111,6 @@ const Post = () => {
       values.region.forEach((region) => formData.append('region', region));
       formData.append('description', escape(values.description));
       formData.append('showPost', values.showInfo);
-      // for (const pair of formData.entries()) {
-      //   console.log(pair[0] + ': ' + pair[1]);
-      // }
       try {
         await sendRequest(
           'http://localhost:8000/api/posts',

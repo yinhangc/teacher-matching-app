@@ -20,7 +20,6 @@ const Profile = () => {
       } = await sendRequest(`http://localhost:8000/api/users/getMe`, {
         Authorization: 'Bearer ' + token,
       });
-      console.log(user);
       setUser(user);
     } catch (err) {}
   }, [token, sendRequest]);
@@ -75,7 +74,7 @@ const Profile = () => {
         show={!!error}
         content="讀取失敗"
       />
-      {isLoading && <LoadingSpinner />}
+      {isLoading && !error && <LoadingSpinner />}
       {!isLoading && !error && user && (
         <div className="grid sm:grid-cols-[max-content,max-content] gap-x-12 gap-y-10 items-center justify-center">
           <div className="grid grid-cols-1 justify-items-center gap-3 sm:border-b-0 sm:border-r-2 sm:border-sky-800 sm:border-dotted sm:pr-12">
@@ -102,7 +101,7 @@ const Profile = () => {
                 onClick={clearIconHandler}
                 btnType="delete"
               >
-                <i class="fa-regular fa-square-minus"></i>清除頭像
+                <i className="fa-regular fa-square-minus"></i>清除頭像
               </Button>
             )}
           </div>
@@ -116,7 +115,7 @@ const Profile = () => {
                 <h4>電郵地址</h4>
                 <p>{user.email}</p>
                 <Button className="col-span-2" onClick={() => setEdit(true)}>
-                  <i class="fa-solid fa-user-pen"></i>更改資料
+                  <i className="fa-solid fa-user-pen"></i>更改資料
                 </Button>
               </div>
             )}

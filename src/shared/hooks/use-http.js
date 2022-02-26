@@ -35,10 +35,10 @@ export const useHttp = () => {
         setIsLoading(false);
         return data;
       } catch (err) {
-        console.log(err.response.data);
+        console.log(err.response);
         setError(err.response.data);
         setIsLoading(false);
-        if (err.response.data.error.statusCode === 401) {
+        if (err.response.status === 401) {
           logout();
           navigate('/auth');
         }

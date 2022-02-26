@@ -38,7 +38,6 @@ const ProfileEdit = ({ setEdit, user, getUser }) => {
 
   const submitHandler = async (values) => {
     const { name, email, passwordCurrent, password, passwordConfirm } = values;
-    console.log(values);
     try {
       await sendRequest(
         `http://localhost:8000/api/users/updateMe`,
@@ -135,7 +134,7 @@ const ProfileEdit = ({ setEdit, user, getUser }) => {
                 value={values.passwordConfirm}
                 type="password"
               />
-              <div className="flex gap-2">
+              <div className="flex gap-2 justify-center sm:justify-start">
                 <Button
                   onClick={() => setEdit(false)}
                   btnType="back"

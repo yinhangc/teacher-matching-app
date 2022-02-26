@@ -2,47 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  h1 {
-    @apply text-3xl font-bold md:text-4xl;
-  }
+h1 {
+  @apply text-3xl font-bold md:text-4xl;
+}
 
-  h2 {
-    @apply text-2xl font-bold md:text-3xl;
-  }
+h2 {
+  @apply text-2xl font-bold md:text-3xl;
+}
 
-  h3 {
-    @apply text-lg font-bold md:text-2xl;
-  }
+h3 {
+  @apply text-lg font-bold md:text-2xl;
+}
 
-  h4 {
-    @apply text-lg font-bold;
-  }
+h4 {
+  @apply text-lg font-bold;
+}
 
-  body {
-    font-family: 'STHeiti', 'SimHei';
-    @apply text-base;
-  }
+body {
+  font-family: 'STHeiti', 'SimHei';
+  @apply text-base;
+}
 
-  header ul {
-    @apply text-base font-bold md:text-xl;
-  }
+header ul {
+  @apply text-base font-bold md:text-xl;
+}
 
-  label {
-    @apply text-lg font-bold;
-  }
+label {
+  @apply text-lg font-bold;
+}
 
-  input {
-    font: inherit;
-  }
+input {
+  font: inherit;
+}
 
-  :not(button) > i {
-    @apply w-6 mr-2;
-  }
+:not(button) > i {
+  @apply w-6 mr-2;
+}
 
-  #editor h1,
-  #editor h2,
-  #editor h3 {
-    font-weight: normal;
-  }
+#editor {
+  @apply text-base;
+}
+
+#editor h1,
+#editor h2,
+#editor h3 {
+  font-weight: normal;
 }

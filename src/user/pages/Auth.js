@@ -76,13 +76,14 @@ const Auth = () => {
             validationSchema={validate}
             onSubmit={(values) => submitHandler(values)}
           >
-            {({ isValid }) => (
+            {({ isValid, values }) => (
               <Form className="grid gap-6 w-full max-w-lg">
                 {signup && (
                   <Input
                     icon={<i className="fa-solid fa-signature"></i>}
                     label="用戶名"
                     name="name"
+                    value={values.name}
                     type="text"
                     placeholder="用戶名"
                     autoComplete="new-password"
@@ -92,6 +93,7 @@ const Auth = () => {
                   icon={<i className="fa-solid fa-at"></i>}
                   label="電郵地址"
                   name="email"
+                  value={values.email}
                   type="text"
                   placeholder="電郵地址"
                 />
@@ -99,6 +101,7 @@ const Auth = () => {
                   icon={<i className="fa-solid fa-lock"></i>}
                   label="密碼"
                   name="password"
+                  value={values.password}
                   type="password"
                   placeholder="密碼"
                 />
@@ -107,6 +110,7 @@ const Auth = () => {
                     icon={<i className="fa-solid fa-lock"></i>}
                     label="確認密碼"
                     name="passwordConfirm"
+                    value={values.passwordConfirm}
                     type="password"
                     placeholder="密碼"
                   />

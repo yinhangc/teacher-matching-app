@@ -32,7 +32,6 @@ const TeacherDetail = () => {
         post.time = post.time
           .sort((a, b) => timeOption.indexOf(a) - timeOption.indexOf(b))
           .join(', ');
-        console.log(post);
         setTeacher(post);
       } catch (err) {}
     };
@@ -47,7 +46,7 @@ const TeacherDetail = () => {
         show={!!error}
         content="抱歉，暫時未能加載資料"
       />
-      <section id="teacher-detail" className="grid gap-5">
+      <section id="teacher-detail" className="grid gap-6">
         {isLoading && !teacher && <LoadingSpinner />}
         {!isLoading && !error && teacher && (
           <>
@@ -78,19 +77,27 @@ const TeacherDetail = () => {
             )}
             <h2>{teacher.title}</h2>
             <div>
-              <h3 className="mb-1 text-sky-900">聯絡電話</h3>
+              <h3 className="mb-2 text-sky-900">
+                <i className="fa-solid fa-phone mr-4"></i>聯絡電話
+              </h3>
               <p>{teacher.phone}</p>
             </div>
             <div>
-              <h3 className="mb-1 text-sky-900">時間</h3>
+              <h3 className="mb-2 text-sky-900">
+                <i className="fa-solid fa-clock mr-4"></i>時間
+              </h3>
               <p>{teacher.time}</p>
             </div>
             <div>
-              <h3 className="mb-1 text-sky-900">地區</h3>
+              <h3 className="mb-2 text-sky-900">
+                <i className="fa-solid fa-map-location-dot mr-4"></i>地區
+              </h3>
               <p>{teacher.region}</p>
             </div>
             <div>
-              <h3 className="mb-1 text-sky-900">詳細資料</h3>
+              <h3 className="mb-2 text-sky-900">
+                <i className="fa-solid fa-pencil mr-4"></i>詳細資料
+              </h3>
               <ViewEditor viewText={teacher.description} />
             </div>
           </>

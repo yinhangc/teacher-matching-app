@@ -18,6 +18,7 @@ const TeacherFilter = () => {
       setRegionFilter(searchParams.get('region').split(','));
     if (searchParams.get('time')?.split(','))
       setTimeFilter(searchParams.get('time').split(','));
+    if (searchParams.get('page')) setExpand(false);
   }, [searchParams]);
 
   const regionClickHandler = (e) => {
@@ -26,9 +27,9 @@ const TeacherFilter = () => {
     updatedArr = !regionFilter.includes(input)
       ? [...regionFilter, input]
       : regionFilter.filter((r) => r !== input);
-    setRegionFilter(updatedArr);
     query = updatedArr.join(',');
     query ? searchParams.set('region', query) : searchParams.delete('region');
+    searchParams.delete('page');
     setSearchParams(searchParams);
   };
 
@@ -38,9 +39,9 @@ const TeacherFilter = () => {
     updatedArr = !timeFilter.includes(input)
       ? [...timeFilter, input]
       : timeFilter.filter((r) => r !== input);
-    setTimeFilter(updatedArr);
     query = updatedArr.join(',');
     query ? searchParams.set('time', query) : searchParams.delete('time');
+    searchParams.delete('page');
     setSearchParams(searchParams);
   };
 
