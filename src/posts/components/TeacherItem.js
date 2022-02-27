@@ -8,7 +8,7 @@ const TeacherItem = (props) => {
       <li className="grid sm:grid-cols-[1fr,2fr] gap-3 items-center rounded-xl border border-slate-300 p-3 shadow-md transition duration-150 ease-in-out hover:scale-105">
         <div>
           <img
-            src={`http://localhost:8000/image/posts/${imageCover}`}
+            src={`${process.env.REACT_APP_BACKEND_IMAGE_URL}/posts/${imageCover}`}
             alt={`${creator.name}'s cover`}
             className="rounded-lg"
           />
@@ -19,7 +19,7 @@ const TeacherItem = (props) => {
           <div className="flex items-center gap-2">
             <span className="w-12 rounded-full overflow-hidden">
               <img
-                src={`http://localhost:8000/image/users/${creator.icon}`}
+                src={`${process.env.REACT_APP_BACKEND_IMAGE_URL}/users/${creator.icon}`}
                 alt={creator.name}
               />
             </span>

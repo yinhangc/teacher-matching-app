@@ -17,9 +17,12 @@ const Profile = () => {
     try {
       const {
         data: { user },
-      } = await sendRequest(`http://localhost:8000/api/users/getMe`, {
-        Authorization: 'Bearer ' + token,
-      });
+      } = await sendRequest(
+        `${process.env.REACT_APP_BACKEND_URL}/users/getMe`,
+        {
+          Authorization: 'Bearer ' + token,
+        }
+      );
       setUser(user);
     } catch (err) {}
   }, [token, sendRequest]);
@@ -35,7 +38,7 @@ const Profile = () => {
       formData.append('photo', file);
       try {
         await sendRequest(
-          `http://localhost:8000/api/users/updateMe`,
+          `${process.env.REACT_APP_BACKEND_URL}/users/updateMe`,
           {
             Authorization: 'Bearer ' + token,
             'Content-Type': 'application/x-www-form-urlencoded',
@@ -51,7 +54,7 @@ const Profile = () => {
   const clearIconHandler = async () => {
     try {
       await sendRequest(
-        `http://localhost:8000/api/users/updateMe`,
+        `${process.env.REACT_APP_BACKEND_URL}/users/updateMe`,
         {
           Authorization: 'Bearer ' + token,
           'Content-Type': 'application/json',
@@ -72,7 +75,7 @@ const Profile = () => {
         onCancel={clearError}
         errorMsg={error?.message}
         show={!!error}
-        content="讀取失敗"
+        content="抱歉，暫時未能讀取資料"
       />
       {isLoading && !error && <LoadingSpinner />}
       {!isLoading && !error && user && (
@@ -80,7 +83,7 @@ const Profile = () => {
           <div className="grid grid-cols-1 justify-items-center gap-3 sm:border-b-0 sm:border-r-2 sm:border-sky-800 sm:border-dotted sm:pr-12">
             <div>
               <img
-                src={`http://localhost:8000/image/users/${user.icon}`}
+                src={`${process.env.REACT_APP_BACKEND_IMAGE_URL}/users/${user.icon}`}
                 className="w-52 rounded-full object-contain"
                 alt={user.name}
               />

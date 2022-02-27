@@ -19,10 +19,14 @@ const ImageUpload = ({
   useEffect(() => {
     if (defaultValue?.length > 0 && name === 'images') {
       setPreview(
-        defaultValue.map((name) => `http://localhost:8000/image/posts/${name}`)
+        defaultValue.map(
+          (name) => `${process.env.REACT_APP_BACKEND_IMAGE_URL}/posts/${name}`
+        )
       );
     } else if (defaultValue && name === 'imageCover') {
-      setPreview([`http://localhost:8000/image/posts/${defaultValue}`]);
+      setPreview([
+        `${process.env.REACT_APP_BACKEND_IMAGE_URL}/posts/${defaultValue}`,
+      ]);
     }
   }, [defaultValue, name]);
 

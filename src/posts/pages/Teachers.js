@@ -1,5 +1,5 @@
 import React, { useContext, useCallback, useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams, useLocation } from 'react-router-dom';
 import AuthContext from '../../shared/context/auth-context';
 import { useHttp } from '../../shared/hooks/use-http';
 import TeachersList from '../components/TeachersList';
@@ -13,6 +13,7 @@ const limit = 4;
 
 const Teachers = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const [searchParams] = useSearchParams();
   const { isLoggedIn } = useContext(AuthContext);
   const [teachers, setTeachers] = useState([]);
@@ -27,7 +28,7 @@ const Teachers = () => {
           data: { posts },
           total,
         } = await sendRequest(
-          `http://localhost:8000/api/posts`,
+          `${process.env.REACT_APP_BACKEND_URL}/posts`,
           {},
           'GET',
           null,
@@ -48,20 +49,20 @@ const Teachers = () => {
     searchParams.get('page')
       ? setCurrPageNum(parseInt(searchParams.get('page')))
       : setCurrPageNum(1);
-    fetchTeachers(queryObj);
-  }, [fetchTeachers, searchParams]);
+    if (pathname === '/') fetchTeachers(queryObj);
+  }, [fetchTeachers, pathname, searchParams]);
 
   return (
     <>
       <Modal
         onCancel={clearError}
-        errorMsg={error?.message}
+        errorMsg={error}
         show={!!error}
         content="抱歉，暫時未能加載資料"
       />
-      {isLoading && !teachers && <LoadingSpinner />}
+      {isLoading && !error && <LoadingSpinner />}
       {!isLoading && !error && teachers && (
-        <section className="grid gap-2 auto-rows-min">
+        <section className="grid gap-3 auto-rows-min">
           {!isLoggedIn && (
             <Button
               btnType="grey"

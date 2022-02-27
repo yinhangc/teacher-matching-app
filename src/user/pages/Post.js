@@ -37,7 +37,7 @@ const Post = () => {
   const getUserPost = useCallback(async () => {
     const {
       data: { user },
-    } = await sendRequest(`http://localhost:8000/api/users/getMe`, {
+    } = await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/users/getMe`, {
       Authorization: 'Bearer ' + token,
     });
     if (user.post.length > 0) {
@@ -79,7 +79,7 @@ const Post = () => {
       delete body.imageCover;
       try {
         await sendRequest(
-          'http://localhost:8000/api/posts',
+          `${process.env.REACT_APP_BACKEND_URL}/posts`,
           {
             Authorization: 'Bearer ' + token,
             'Content-Type': 'application/json',
@@ -113,7 +113,7 @@ const Post = () => {
       formData.append('showPost', values.showInfo);
       try {
         await sendRequest(
-          'http://localhost:8000/api/posts',
+          `${process.env.REACT_APP_BACKEND_URL}/posts`,
           {
             Authorization: 'Bearer ' + token,
             'Content-Type': 'application/x-www-form-urlencoded',

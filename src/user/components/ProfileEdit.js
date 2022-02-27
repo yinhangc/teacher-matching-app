@@ -40,7 +40,7 @@ const ProfileEdit = ({ setEdit, user, getUser }) => {
     const { name, email, passwordCurrent, password, passwordConfirm } = values;
     try {
       await sendRequest(
-        `http://localhost:8000/api/users/updateMe`,
+        `${process.env.REACT_APP_BACKEND_URL}/users/updateMe`,
         {
           Authorization: 'Bearer ' + token,
           'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ const ProfileEdit = ({ setEdit, user, getUser }) => {
     if (passwordCurrent && password && passwordConfirm) {
       try {
         await sendRequest(
-          `http://localhost:8000/api/users/updatePassword`,
+          `${process.env.REACT_APP_BACKEND_URL}/users/updatePassword`,
           {
             Authorization: 'Bearer ' + token,
             'Content-Type': 'application/json',

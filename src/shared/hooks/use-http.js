@@ -35,8 +35,9 @@ export const useHttp = () => {
         setIsLoading(false);
         return data;
       } catch (err) {
-        console.log(err.response);
-        setError(err.response.data);
+        err.response.status === 404
+          ? setError('加載失敗')
+          : setError(err.response.data);
         setIsLoading(false);
         if (err.response.status === 401) {
           logout();

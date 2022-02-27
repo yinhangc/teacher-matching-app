@@ -34,7 +34,7 @@ const Auth = () => {
     if (!signup) {
       try {
         const res = await sendRequest(
-          'http://localhost:8000/api/users/login',
+          `${process.env.REACT_APP_BACKEND_URL}/users/login`,
           {},
           'POST',
           values
@@ -44,7 +44,7 @@ const Auth = () => {
     } else {
       try {
         const res = await sendRequest(
-          'http://localhost:8000/api/users/signup',
+          `${process.env.REACT_APP_BACKEND_URL}/users/signup`,
           {},
           'POST',
           values
@@ -70,11 +70,12 @@ const Auth = () => {
         {isLoading && !error && <LoadingSpinner />}
         {!error && !isLoading && (
           <Formik
-            initialValues={
-              signup
-                ? { email: '', password: '', name: '', passwordConfirm: '' }
-                : { email: '', password: '' }
-            }
+            initialValues={{
+              email: '',
+              password: '',
+              name: '',
+              passwordConfirm: '',
+            }}
             validationSchema={validate}
             onSubmit={(values) => submitHandler(values)}
           >

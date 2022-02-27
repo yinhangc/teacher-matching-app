@@ -24,7 +24,9 @@ const TeacherDetail = () => {
       try {
         const {
           data: { post },
-        } = await sendRequest(`http://localhost:8000/api/posts/${id}`);
+        } = await sendRequest(
+          `${process.env.REACT_APP_BACKEND_URL}/posts/${id}`
+        );
         post.description = unescape(post.description);
         post.region = post.region
           .sort((a, b) => regionOption.indexOf(a) - regionOption.indexOf(b))
@@ -42,7 +44,7 @@ const TeacherDetail = () => {
     <>
       <Modal
         onCancel={clearError}
-        errorMsg={error?.message}
+        errorMsg={error}
         show={!!error}
         content="抱歉，暫時未能加載資料"
       />
@@ -54,14 +56,14 @@ const TeacherDetail = () => {
               <Swiper>
                 <div>
                   <img
-                    src={`http://localhost:8000/image/posts/${teacher.imageCover}`}
+                    src={`${process.env.REACT_APP_BACKEND_IMAGE_URL}/posts/${teacher.imageCover}`}
                     alt={teacher.creator.name}
                   />
                 </div>
                 {teacher.images.map((img) => (
                   <div key={img}>
                     <img
-                      src={`http://localhost:8000/image/posts/${img}`}
+                      src={`${process.env.REACT_APP_BACKEND_IMAGE_URL}/posts/${img}`}
                       alt={teacher.creator.name}
                     />
                   </div>
@@ -70,7 +72,7 @@ const TeacherDetail = () => {
             ) : (
               <div>
                 <img
-                  src={`http://localhost:8000/image/posts/${teacher.imageCover}`}
+                  src={`${process.env.REACT_APP_BACKEND_IMAGE_URL}/posts/${teacher.imageCover}`}
                   alt={teacher.creator.name}
                 />
               </div>
