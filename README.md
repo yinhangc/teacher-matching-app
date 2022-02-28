@@ -1,6 +1,6 @@
 # MERN stack: Teacher matching app
 
-Hosting URL: https://teacher-matching-app.web.app
+Hosting URL: https://teacher-matching-app.firebaseapp.com
 
 ## Note:
 
