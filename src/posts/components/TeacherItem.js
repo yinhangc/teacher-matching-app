@@ -23,7 +23,7 @@ const TeacherItem = (props) => {
                 alt={creator.name}
               />
             </span>
-            <span className="pt-2 text-sky-900">{creator.name}</span>
+            <span className="text-sky-900">{creator.name}</span>
           </div>
         </div>
       </li>

@@ -1,11 +1,10 @@
 import { useQuill } from 'react-quilljs';
-import 'react-quill/dist/quill.snow.css';
 import React, { useState, useEffect } from 'react';
 import { useField } from 'formik';
 
 const modules = {
   toolbar: [
-    [{ header: [1, 2, 3, false] }],
+    [{ header: [2, 3, false] }],
     ['bold', 'italic', 'underline', 'strike', { color: [] }, 'blockquote'],
     [
       { align: [] },
