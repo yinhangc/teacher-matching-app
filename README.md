@@ -1,6 +1,6 @@
 # MERN stack: Teacher matching app
 
-Hosting URL: https://teacher-matching-app.web.app
+Hosting URL: https://teacher-matching-app.firebaseapp.com
 
 ## Note:
 
@@ -9,5 +9,4 @@ Hosting URL: https://teacher-matching-app.web.app
 
 ## Test account:
 
-email: test@test.com
-password: 123456
+Email: test@test.com | Password: 123456
